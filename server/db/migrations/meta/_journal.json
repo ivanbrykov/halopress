@@ -1,0 +1,90 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1778918763131,
+      "tag": "0000_restore_materialized_search_index",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1783909586488,
+      "tag": "0001_add_installation_state",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1783911850469,
+      "tag": "0002_add_browser_setup_session",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1783943602176,
+      "tag": "0003_preserve_published_revisions",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1784003960138,
+      "tag": "0004_add_editorial_safety_revisions",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1784006346142,
+      "tag": "0005_add_schema_lifecycle_status",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1784009883415,
+      "tag": "0006_add_public_member_identities",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "6",
+      "when": 1784011558154,
+      "tag": "0007_add_public_routes_and_aliases",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "6",
+      "when": 1784360283900,
+      "tag": "0008_add_site_menu_sets",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "6",
+      "when": 1784377236759,
+      "tag": "0009_add_site_layout_documents",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "6",
+      "when": 1784382414545,
+      "tag": "0010_add_site_layout_assignments",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "6",
+      "when": 1784789910057,
+      "tag": "0011_add_korean_full_text_search",
+      "breakpoints": true
+    }
+  ]
+}

@@ -1,0 +1,142 @@
+{
+  "name": "halopress",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "^22.19.0 || >=24.11.0 <25"
+  },
+  "scripts": {
+    "build": "pnpm build:app && pnpm build:search-worker",
+    "build:app": "node --max-old-space-size=4096 node_modules/nuxt/bin/nuxt.mjs build",
+    "build:search-worker": "pnpm --filter @halopress/search-worker build",
+    "predev": "node scripts/check-local-d1-migrations.mjs",
+    "dev": "nuxt dev",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "lint": "eslint .",
+    "test": "vitest run && pnpm test:workspaces",
+    "test:workspaces": "pnpm --filter @halopress/korean-search-tokenizer test && pnpm --filter @halopress/search-worker test",
+    "test:node-search:built-runtime": "node scripts/check-node-search-built-runtime.mjs",
+    "test:site-menu:built-ssr": "HALOPRESS_SITE_MENU_SSR_FIXTURE=1 pnpm build && node scripts/check-site-menu-built-ssr.mjs",
+    "test:site-theme:built-ssr": "HALOPRESS_SITE_MENU_SSR_FIXTURE=1 pnpm build && node scripts/check-site-menu-built-ssr.mjs",
+    "test:site-layout:built-ssr": "HALOPRESS_SITE_MENU_SSR_FIXTURE=1 pnpm build && node scripts/check-site-menu-built-ssr.mjs",
+    "typecheck": "nuxt typecheck && pnpm typecheck:workspaces",
+    "typecheck:workspaces": "pnpm --filter @halopress/korean-search-tokenizer typecheck && pnpm --filter @halopress/search-worker typecheck",
+    "db:generate": "drizzle-kit generate --name",
+    "db:migrate": "drizzle-kit migrate",
+    "db:push": "drizzle-kit push --force",
+    "db:studio": "drizzle-kit studio",
+    "db:backfill:content-listing": "tsx scripts/backfill-content-listing.ts",
+    "db:drop": "drizzle-kit drop",
+    "db:d1:list": "wrangler d1 migrations list DB",
+    "db:d1:apply": "wrangler d1 migrations apply DB",
+    "db:d1:apply:local": "wrangler d1 migrations apply DB --local",
+    "db:d1:apply:remote": "wrangler d1 migrations apply DB --remote",
+    "deploy": "bash scripts/deploy-cloudflare.sh",
+    "deploy:cf": "bash scripts/deploy-cloudflare.sh",
+    "test:deploy": "vitest run tests/cloudflare-deploy.test.ts"
+  },
+  "dependencies": {
+    "@halopress/korean-search-tokenizer": "workspace:*",
+    "@iconify-json/lucide": "^1.2.117",
+    "@iconify-json/simple-icons": "^1.2.90",
+    "@nuxt/image": "2.0.0",
+    "@nuxt/ui": "^4.10.0",
+    "@sidebase/nuxt-auth": "1.3.1",
+    "@tiptap/core": "3.27.3",
+    "@tiptap/extension-collaboration": "3.27.3",
+    "@tiptap/extension-drag-handle": "3.27.3",
+    "@tiptap/extension-drag-handle-vue-3": "3.27.3",
+    "@tiptap/extension-horizontal-rule": "3.27.3",
+    "@tiptap/extension-image": "3.27.3",
+    "@tiptap/extension-mention": "3.27.3",
+    "@tiptap/extension-node-range": "3.27.3",
+    "@tiptap/extension-placeholder": "3.27.3",
+    "@tiptap/extension-text-align": "3.27.3",
+    "@tiptap/extensions": "3.27.3",
+    "@tiptap/html": "3.27.3",
+    "@tiptap/markdown": "3.27.3",
+    "@tiptap/pm": "3.27.3",
+    "@tiptap/starter-kit": "3.27.3",
+    "@tiptap/suggestion": "3.27.3",
+    "@tiptap/vue-3": "3.27.3",
+    "@tiptap/y-tiptap": "3.0.6",
+    "canvas-confetti": "^1.9.4",
+    "drizzle-orm": "^0.45.2",
+    "garu-ko": "0.9.11",
+    "jose": "^6.2.3",
+    "next-auth": "4.24.14",
+    "nuxt": "^4.5.1",
+    "sortablejs": "^1.15.7",
+    "ulid": "^3.0.2",
+    "unicode-case-folding": "1.1.1",
+    "zod": "^4.4.3",
+    "zod-from-json-schema": "^0.5.4"
+  },
+  "devDependencies": {
+    "@libsql/client": "^0.17.4",
+    "@nuxt/eslint": "^1.15.1",
+    "@types/canvas-confetti": "^1.9.0",
+    "@types/node": "^25.1.0",
+    "@types/sortablejs": "^1.15.9",
+    "drizzle-kit": "^0.31.10",
+    "eslint": "^9.39.4",
+    "jsonc-parser": "3.3.1",
+    "tsx": "^4.23.1",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.10",
+    "vue-tsc": "^3.3.7",
+    "wrangler": "4.110.0"
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "allowedVersions": {
+        "@sidebase/nuxt-auth@1.3.1>next-auth": "4.24.14"
+      }
+    },
+    "overrides": {
+      "@esbuild-kit/core-utils>esbuild": "0.25.12",
+      "@eslint/config-inspector>esbuild": "0.28.1",
+      "@tiptap/*": "3.27.3",
+      "@tiptap/vue-3": "3.27.3",
+      "@tiptap/core": "3.27.3",
+      "@tiptap/pm": "3.27.3",
+      "@tiptap/extension-drag-handle-vue-3": "3.27.3",
+      "@tiptap/extension-bubble-menu": "3.27.3",
+      "@tiptap/extension-floating-menu": "3.27.3",
+      "@tiptap/extension-list": "3.27.3",
+      "@tiptap/extension-placeholder": "3.27.3",
+      "@tiptap/html": "3.27.3",
+      "@tiptap/markdown": "3.27.3",
+      "@tiptap/y-tiptap": "3.0.6",
+      "@mapbox/node-pre-gyp>tar": "7.5.16",
+      "anymatch>picomatch": "2.3.2",
+      "archiver-utils>lodash": "4.18.0",
+      "fontless>esbuild": "0.28.1",
+      "glob@10>minimatch": "9.0.7",
+      "micromatch>picomatch": "2.3.2",
+      "minimatch@5>brace-expansion": "2.0.3",
+      "minimatch@9>brace-expansion": "2.0.3",
+      "next-auth@4.24.14>next": "-",
+      "next-auth@4.24.14>react": "-",
+      "next-auth@4.24.14>react-dom": "-",
+      "next-auth@4.24.14>uuid": "11.1.1",
+      "readdir-glob>minimatch": "5.1.8"
+    },
+    "patchedDependencies": {
+      "garu-ko@0.9.11": "patches/garu-ko@0.9.11.patch",
+      "next-auth@4.24.14": "patches/next-auth@4.24.14.patch"
+    }
+  },
+  "cloudflare": {
+    "bindings": {
+      "DB": {
+        "description": "Stores all Halopress content and installation state. Create a new isolated D1 database for each site; reuse one only when redeploying that same site."
+      },
+      "CONTENT_ASSETS": {
+        "description": "Stores uploaded media. Create a new isolated R2 bucket for each site; reuse one only when redeploying that same site."
+      }
+    }
+  },
+  "packageManager": "pnpm@10.23.0"
+}

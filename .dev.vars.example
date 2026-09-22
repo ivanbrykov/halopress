@@ -1,0 +1,6 @@
+# Halopress securely creates NUXT_AUTH_SECRET during the first deployment and
+# preserves the Cloudflare Worker secret on later deployments.
+# To provide your own value for a terminal deployment, uncomment this line and
+# pass this file with --secrets-file. It must be at least 24 UTF-8 bytes; use 32
+# random bytes (`openssl rand -hex 32`). Never commit the uncommented value.
+# NUXT_AUTH_SECRET=replace-with-a-strong-random-value

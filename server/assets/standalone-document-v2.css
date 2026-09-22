@@ -1,0 +1,733 @@
+/*
+ * HaloPress standalone authored-document contract v2.
+ * The fragment root is transparent and inherits consumer-owned typography and color.
+ * This file is served from an append-only content-addressed v2 URL.
+ */
+
+.halo-content {
+  --halo-background: #ffffff;
+  --halo-surface: #f7f7f8;
+  --halo-surface-raised: #ffffff;
+  --halo-text: #18181b;
+  --halo-text-muted: #52525b;
+  --halo-border: #d4d4d8;
+  --halo-primary: #2563eb;
+  --halo-primary-contrast: #ffffff;
+  --halo-secondary: #7c3aed;
+  --halo-secondary-contrast: #ffffff;
+  --halo-success: #15803d;
+  --halo-success-contrast: #ffffff;
+  --halo-info: #0369a1;
+  --halo-info-contrast: #ffffff;
+  --halo-warning: #d97706;
+  --halo-warning-contrast: #18181b;
+  --halo-error: #dc2626;
+  --halo-error-contrast: #ffffff;
+  --halo-neutral: #52525b;
+  --halo-neutral-contrast: #ffffff;
+  --halo-accent: var(--halo-primary);
+  --halo-accent-contrast: var(--halo-primary-contrast);
+  --halo-focus: #2563eb;
+  --halo-code-background: #18181b;
+  --halo-code-text: #f4f4f5;
+  --halo-radius-small: 0.5rem;
+  --halo-radius: 0.875rem;
+  --halo-radius-large: 1.25rem;
+  --halo-shadow: 0 16px 40px rgb(24 24 27 / 0.1);
+  --halo-content-width: 72rem;
+  --halo-text-width: 48rem;
+  box-sizing: border-box;
+  overflow-wrap: anywhere;
+}
+
+.halo-content,
+.halo-content *,
+.halo-content *::before,
+.halo-content *::after {
+  box-sizing: border-box;
+}
+
+.halo-content [data-halo-color="primary"] {
+  --halo-accent: var(--halo-primary);
+  --halo-accent-contrast: var(--halo-primary-contrast);
+}
+
+.halo-content [data-halo-color="secondary"] {
+  --halo-accent: var(--halo-secondary);
+  --halo-accent-contrast: var(--halo-secondary-contrast);
+}
+
+.halo-content [data-halo-color="success"] {
+  --halo-accent: var(--halo-success);
+  --halo-accent-contrast: var(--halo-success-contrast);
+}
+
+.halo-content [data-halo-color="info"] {
+  --halo-accent: var(--halo-info);
+  --halo-accent-contrast: var(--halo-info-contrast);
+}
+
+.halo-content [data-halo-color="warning"] {
+  --halo-accent: var(--halo-warning);
+  --halo-accent-contrast: var(--halo-warning-contrast);
+}
+
+.halo-content [data-halo-color="error"] {
+  --halo-accent: var(--halo-error);
+  --halo-accent-contrast: var(--halo-error-contrast);
+}
+
+.halo-content [data-halo-color="neutral"] {
+  --halo-accent: var(--halo-neutral);
+  --halo-accent-contrast: var(--halo-neutral-contrast);
+}
+
+.halo-content [data-halo-highlight-color="primary"] { --halo-highlight: var(--halo-primary); }
+.halo-content [data-halo-highlight-color="secondary"] { --halo-highlight: var(--halo-secondary); }
+.halo-content [data-halo-highlight-color="success"] { --halo-highlight: var(--halo-success); }
+.halo-content [data-halo-highlight-color="info"] { --halo-highlight: var(--halo-info); }
+.halo-content [data-halo-highlight-color="warning"] { --halo-highlight: var(--halo-warning); }
+.halo-content [data-halo-highlight-color="error"] { --halo-highlight: var(--halo-error); }
+.halo-content [data-halo-highlight-color="neutral"] { --halo-highlight: var(--halo-neutral); }
+
+.halo-content [data-halo-spotlight-color="primary"] { --halo-spotlight: var(--halo-primary); }
+.halo-content [data-halo-spotlight-color="secondary"] { --halo-spotlight: var(--halo-secondary); }
+.halo-content [data-halo-spotlight-color="success"] { --halo-spotlight: var(--halo-success); }
+.halo-content [data-halo-spotlight-color="info"] { --halo-spotlight: var(--halo-info); }
+.halo-content [data-halo-spotlight-color="warning"] { --halo-spotlight: var(--halo-warning); }
+.halo-content [data-halo-spotlight-color="error"] { --halo-spotlight: var(--halo-error); }
+.halo-content [data-halo-spotlight-color="neutral"] { --halo-spotlight: var(--halo-neutral); }
+
+.halo-content :where(h1, h2, h3, h4, p, blockquote, figure, ul, ol, pre) {
+  margin-block: 0;
+}
+
+.halo-content :where(ul, ol) {
+  padding-inline-start: 1.5rem;
+}
+
+.halo-content :where(img, svg) {
+  display: block;
+  max-width: 100%;
+}
+
+.halo-content :where(button, input, summary, a) {
+  font: inherit;
+}
+
+.halo-content > * + * {
+  margin-block-start: 1.25rem;
+}
+
+.halo-content > :where(h1, h2, h3, h4) + * {
+  margin-block-start: 0.75rem;
+}
+
+.halo-content p + p,
+.halo-content li + li {
+  margin-block-start: 0.65rem;
+}
+
+.halo-content :where(a) {
+  color: var(--halo-primary);
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.18em;
+}
+
+.halo-content :where(a, summary):focus-visible {
+  outline: 3px solid var(--halo-focus);
+  outline-offset: 3px;
+  border-radius: 0.25rem;
+}
+
+.halo-content [data-halo-align="center"] {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.halo-content [data-halo-align="right"] {
+  margin-inline-start: auto;
+  text-align: right;
+}
+
+.halo-content [data-halo-align="justify"] {
+  text-align: justify;
+}
+
+.halo-content .halo-blockquote {
+  padding: 0.75rem 0 0.75rem 1.25rem;
+  border-inline-start: 0.25rem solid var(--halo-primary);
+  font-size: 1.1rem;
+}
+
+.halo-content :where(code):not(.halo-code-block code) {
+  padding: 0.15em 0.35em;
+  border: 1px solid var(--halo-border);
+  border-radius: 0.3rem;
+  background: var(--halo-surface);
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 0.9em;
+}
+
+.halo-content .halo-code-block {
+  max-width: 100%;
+  padding: 1rem;
+  overflow-x: auto;
+  border-radius: var(--halo-radius-small);
+  color: var(--halo-code-text);
+  background: var(--halo-code-background);
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  white-space: pre;
+}
+
+.halo-content .halo-divider {
+  margin-block: 2rem;
+  border: 0;
+  border-block-start: 1px solid var(--halo-border);
+}
+
+.halo-content .halo-mention {
+  padding: 0.1em 0.35em;
+  border-radius: 999px;
+  color: var(--halo-primary);
+  background: color-mix(in srgb, var(--halo-primary) 12%, transparent);
+}
+
+.halo-content .halo-richtext-image {
+  width: auto;
+  height: auto;
+  margin-block: 1.5rem;
+  border-radius: var(--halo-radius);
+}
+
+.halo-content .halo-block {
+  position: relative;
+  display: grid;
+  gap: clamp(1.25rem, 4vw, 3rem);
+  width: 100%;
+  margin-block: clamp(1.5rem, 5vw, 4rem);
+  padding: clamp(1.25rem, 4vw, 3.5rem);
+  overflow: hidden;
+  border: 1px solid var(--halo-border);
+  border-radius: var(--halo-radius-large);
+  color: var(--halo-text);
+  background: var(--halo-surface-raised);
+}
+
+.halo-content .halo-block-content {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.halo-content .halo-block-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: var(--halo-text-width);
+}
+
+.halo-content .halo-eyebrow {
+  color: var(--halo-primary);
+  font-size: 0.8rem;
+  font-weight: 750;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.halo-content .halo-block-title {
+  max-width: 20ch;
+}
+
+.halo-content .halo-block-description {
+  max-width: 65ch;
+  color: var(--halo-text-muted);
+  font-size: clamp(1rem, 1.7vw, 1.2rem);
+  text-wrap: pretty;
+}
+
+.halo-content .halo-icon {
+  display: inline-block;
+  width: 1.15em;
+  height: 1.15em;
+  flex: 0 0 auto;
+  overflow: visible;
+  vertical-align: -0.15em;
+}
+
+.halo-content .halo-block-content > .halo-icon {
+  width: 2rem;
+  height: 2rem;
+  color: var(--halo-accent);
+}
+
+.halo-content .halo-media {
+  display: grid;
+  min-height: 10rem;
+  margin: 0;
+  overflow: hidden;
+  place-items: center;
+  border-radius: var(--halo-radius);
+  background: var(--halo-surface);
+}
+
+.halo-content .halo-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.halo-content .halo-media-fallback {
+  min-height: 8rem;
+  border: 1px dashed var(--halo-border);
+  color: var(--halo-text-muted);
+  background: var(--halo-surface);
+  font-size: 0.875rem;
+}
+
+.halo-content .halo-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.halo-content .halo-action {
+  display: inline-flex;
+  width: fit-content;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.65rem 1rem;
+  border: 1px solid transparent;
+  border-radius: var(--halo-radius-small);
+  color: var(--halo-accent-contrast);
+  background: var(--halo-accent);
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+  transition: filter 140ms ease, transform 140ms ease;
+}
+
+.halo-content .halo-action[data-halo-variant="outline"] {
+  border-color: var(--halo-accent);
+  color: var(--halo-accent);
+  background: transparent;
+}
+
+.halo-content .halo-action[data-halo-variant="soft"],
+.halo-content .halo-action[data-halo-variant="subtle"] {
+  color: var(--halo-accent);
+  background: color-mix(in srgb, var(--halo-accent) 14%, transparent);
+}
+
+.halo-content .halo-action[data-halo-variant="ghost"],
+.halo-content .halo-action[data-halo-variant="naked"] {
+  color: var(--halo-accent);
+  background: transparent;
+}
+
+.halo-content .halo-action[data-halo-variant="subtle"] {
+  background: color-mix(in srgb, var(--halo-accent) 8%, transparent);
+}
+
+.halo-content .halo-action[data-halo-variant="naked"] {
+  min-height: 0;
+  padding: 0.25rem 0;
+  border-radius: 0;
+}
+
+@media (hover: hover) {
+  .halo-content :where(.halo-action, .halo-card-anchor, .halo-feature-link):hover {
+    filter: brightness(0.92);
+    transform: translateY(-1px);
+  }
+}
+
+.halo-content .halo-hero {
+  border: 0;
+  background:
+    radial-gradient(circle at 85% 15%, color-mix(in srgb, var(--halo-primary) 22%, transparent), transparent 42%),
+    var(--halo-surface);
+}
+
+/* Structural pageHero nodes have authored children rather than legacy block props. */
+.halo-content .halo-hero:not([data-halo-legacy-block="true"]) {
+  color: inherit;
+  background: transparent;
+}
+
+.halo-content .halo-card {
+  margin-block: 1.5rem;
+  padding: clamp(1rem, 3vw, 2rem);
+  box-shadow: var(--halo-shadow);
+}
+
+.halo-content .halo-card-anchor {
+  display: grid;
+  gap: clamp(1.25rem, 4vw, 3rem);
+  min-width: 0;
+  color: inherit;
+  text-decoration: none;
+  transition: filter 140ms ease, transform 140ms ease;
+}
+
+.halo-content .halo-card[data-halo-highlight="true"] {
+  border-color: var(--halo-highlight, var(--halo-accent));
+}
+
+.halo-content .halo-card[data-halo-spotlight="true"]::before {
+  position: absolute;
+  width: 12rem;
+  height: 12rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--halo-spotlight, var(--halo-accent)) 18%, transparent), transparent 70%);
+  content: "";
+  inset: -6rem -6rem auto auto;
+  pointer-events: none;
+}
+
+.halo-content .halo-card[data-halo-variant="solid"] {
+  border-color: var(--halo-accent);
+  color: var(--halo-accent-contrast);
+  background: var(--halo-accent);
+}
+
+.halo-content .halo-card[data-halo-variant="solid"] :where(.halo-block-title, .halo-block-description) {
+  color: inherit;
+}
+
+.halo-content .halo-card[data-halo-variant="outline"] {
+  border-color: var(--halo-accent);
+  background: var(--halo-surface-raised);
+}
+
+.halo-content .halo-card[data-halo-variant="soft"] {
+  background: color-mix(in srgb, var(--halo-accent) 16%, var(--halo-surface-raised));
+}
+
+.halo-content .halo-card[data-halo-variant="subtle"] {
+  background: color-mix(in srgb, var(--halo-accent) 8%, var(--halo-surface-raised));
+}
+
+.halo-content .halo-card[data-halo-variant="ghost"] {
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
+}
+
+.halo-content .halo-card[data-halo-variant="naked"] {
+  padding: 0;
+  border-color: transparent;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.halo-content .halo-section {
+  border-inline: 0;
+  border-radius: 0;
+}
+
+.halo-content .halo-features {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+.halo-content .halo-feature {
+  min-width: 0;
+  border: 1px solid var(--halo-border);
+  border-radius: var(--halo-radius);
+  background: var(--halo-surface);
+}
+
+.halo-content .halo-feature-link,
+.halo-content .halo-feature-content {
+  display: flex;
+  height: 100%;
+  gap: 0.75rem;
+  align-items: flex-start;
+  padding: 1rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.halo-content .halo-feature[data-halo-orientation="horizontal"] :where(.halo-feature-link, .halo-feature-content) {
+  flex-direction: row;
+}
+
+.halo-content .halo-feature[data-halo-orientation="vertical"] :where(.halo-feature-link, .halo-feature-content) {
+  flex-direction: column;
+}
+
+.halo-content .halo-feature-body {
+  min-width: 0;
+}
+
+.halo-content :where(.halo-feature-link, .halo-feature-content) > .halo-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--halo-accent);
+}
+
+.halo-content .halo-feature-title {
+  font-size: 1.05rem;
+}
+
+.halo-content .halo-feature-description {
+  margin-block-start: 0.45rem;
+  color: var(--halo-text-muted);
+  font-size: 0.95rem;
+}
+
+.halo-content .halo-testimonial {
+  align-items: center;
+  background: var(--halo-surface);
+}
+
+.halo-content .halo-testimonial-quote {
+  margin: 0;
+  color: var(--halo-text);
+  font-size: clamp(1.25rem, 3vw, 2rem);
+  font-weight: 650;
+  line-height: 1.35;
+}
+
+.halo-content .halo-testimonial-attribution {
+  display: flex;
+  flex-direction: column;
+  margin-block-start: 1rem;
+  font-weight: 700;
+}
+
+.halo-content .halo-testimonial-attribution span {
+  color: var(--halo-text-muted);
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+.halo-content .halo-logos {
+  display: block;
+  text-align: center;
+}
+
+.halo-content .halo-logos .halo-block-header {
+  margin-inline: auto;
+  align-items: center;
+}
+
+.halo-content .halo-logo-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-block-start: 1.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+.halo-content .halo-logo-item {
+  display: grid;
+  min-height: 5rem;
+  place-items: center;
+  padding: 1rem;
+  border: 1px solid var(--halo-border);
+  border-radius: var(--halo-radius-small);
+  background: var(--halo-surface);
+}
+
+.halo-content .halo-logo-image {
+  width: auto;
+  max-height: 3rem;
+}
+
+.halo-content .halo-logo-name {
+  color: var(--halo-text-muted);
+  font-weight: 700;
+}
+
+.halo-content .halo-logo-name[data-halo-asset-status="unavailable"] {
+  text-decoration: underline dotted;
+  text-underline-offset: 0.25em;
+}
+
+.halo-content .halo-faq {
+  display: block;
+  border: 0;
+}
+
+.halo-content .halo-faq-list {
+  margin-block-start: 1.5rem;
+  border-block-start: 1px solid var(--halo-border);
+}
+
+.halo-content .halo-faq-item {
+  border-block-end: 1px solid var(--halo-border);
+}
+
+.halo-content .halo-faq-question {
+  position: relative;
+  padding: 1rem 2.5rem 1rem 0;
+  cursor: pointer;
+  color: var(--halo-text);
+  font-weight: 700;
+  list-style: none;
+}
+
+.halo-content .halo-faq-question::-webkit-details-marker {
+  display: none;
+}
+
+.halo-content .halo-faq-question::after {
+  position: absolute;
+  inset: 50% 0 auto auto;
+  content: "+";
+  font-size: 1.35rem;
+  line-height: 1;
+  transform: translateY(-50%);
+}
+
+.halo-content .halo-faq-item[open] > .halo-faq-question::after {
+  content: "−";
+}
+
+.halo-content .halo-faq-answer {
+  padding: 0 0 1rem;
+  color: var(--halo-text-muted);
+}
+
+.halo-content .halo-cta {
+  border: 0;
+  color: var(--halo-accent-contrast);
+  background: var(--halo-accent);
+}
+
+.halo-content .halo-cta :where(.halo-block-title, .halo-block-description, .halo-eyebrow) {
+  color: inherit;
+}
+
+.halo-content :where(.halo-hero, .halo-section, .halo-cta)[data-halo-orientation="vertical"] > .halo-block-content {
+  align-items: center;
+  text-align: center;
+}
+
+.halo-content :where(.halo-hero, .halo-section, .halo-cta)[data-halo-orientation="vertical"] > .halo-block-content > .halo-block-header {
+  align-items: center;
+}
+
+.halo-content .halo-block[data-halo-reverse="true"] > .halo-media,
+.halo-content .halo-card[data-halo-reverse="true"] > .halo-card-anchor > .halo-media {
+  order: -1;
+}
+
+.halo-content .halo-cta[data-halo-variant="solid"] {
+  color: var(--halo-accent-contrast);
+  background: var(--halo-accent);
+}
+
+.halo-content .halo-cta[data-halo-variant="outline"] {
+  border: 1px solid var(--halo-accent);
+  color: var(--halo-accent);
+  background: transparent;
+}
+
+.halo-content .halo-cta[data-halo-variant="soft"] {
+  color: var(--halo-text);
+  background: color-mix(in srgb, var(--halo-accent) 16%, var(--halo-surface-raised));
+}
+
+.halo-content .halo-cta[data-halo-variant="subtle"] {
+  color: var(--halo-text);
+  background: color-mix(in srgb, var(--halo-accent) 8%, var(--halo-surface-raised));
+}
+
+.halo-content .halo-cta[data-halo-variant="ghost"] {
+  color: var(--halo-text);
+  background: transparent;
+}
+
+.halo-content .halo-cta[data-halo-variant="naked"] {
+  padding-inline: 0;
+  border-radius: 0;
+  color: var(--halo-text);
+  background: transparent;
+}
+
+.halo-content .halo-cta .halo-action[data-halo-variant="solid"] {
+  color: var(--halo-accent);
+  background: var(--halo-accent-contrast);
+}
+
+.halo-content .halo-block-fallback,
+.halo-content .halo-content-fallback {
+  padding: 1rem;
+  border: 1px dashed var(--halo-border);
+  border-radius: var(--halo-radius-small);
+  color: var(--halo-text-muted);
+  background: var(--halo-surface);
+}
+
+@media (min-width: 40rem) {
+  .halo-content .halo-features {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .halo-content .halo-logo-list {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 52rem) {
+  .halo-content .halo-block[data-halo-orientation="horizontal"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: center;
+  }
+
+  .halo-content .halo-card[data-halo-orientation="horizontal"] > .halo-card-anchor {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: center;
+  }
+
+  .halo-content .halo-features {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .halo-content :where(.halo-action, .halo-card-anchor, .halo-feature-link) {
+    transition: none;
+  }
+}
+
+@media print {
+  .halo-content .halo-block {
+    break-inside: avoid;
+    border-color: #777777;
+    color: #000000;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .halo-content .halo-action {
+    border: 1px solid #777777;
+    color: #000000;
+    background: transparent;
+  }
+
+  .halo-content .halo-faq-item:not([open]) > :not(summary) {
+    display: block;
+  }
+
+  .halo-content :where(a[href^="http://"], a[href^="https://"])::after {
+    color: #444444;
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    font-weight: 400;
+  }
+}

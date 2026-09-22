@@ -1,0 +1,82 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "halopress",
+  "main": "./workers/search/src/main-entry.ts",
+  "minify": true,
+  "compatibility_date": "2026-05-18",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "workers_dev": true,
+  "build": {
+    "command": "bash scripts/wrangler-build.sh"
+  },
+  "assets": {
+    "directory": ".output/public"
+  },
+  "observability": {
+    "enabled": true
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      // Keep this name for upgrades from existing Halopress deployments.
+      "database_name": "halopress",
+      "migrations_dir": "server/db/migrations","database_id": "8e7066da-87ee-42e8-8b6f-e55b1a506022"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "CONTENT_ASSETS",
+      "bucket_name": "halopress-content-assets","preview_bucket_name": "halopress-content-assets"
+    }
+  ],
+  "queues": {
+    "producers": [
+      {
+        "binding": "SEARCH_INDEX_QUEUE",
+        "queue": "halopress-search-index"
+      }
+    ],
+    "consumers": [
+      {
+        "queue": "halopress-search-index",
+        "max_batch_size": 1,
+        "max_batch_timeout": 5,
+        "max_retries": 5,
+        "max_concurrency": 2
+      }
+    ]
+  },
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "SEARCH_ANALYZER_DO",
+        "class_name": "AnalyzerDurableObject"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "search-analyzer-v1",
+      "new_sqlite_classes": ["AnalyzerDurableObject"]
+    }
+  ],
+  "triggers": {
+    "crons": ["*/5 * * * *"]
+  },
+  "rules": [
+    {
+      "type": "CompiledWasm",
+      "globs": ["**/*.wasm"],
+      "fallthrough": true
+    },
+    {
+      "type": "Data",
+      "globs": ["**/*.gmdl"],
+      "fallthrough": true
+    }
+  ],
+  "vars": {
+    "NUXT_PUBLIC_KEYWORD_SEARCH_MODE": "server",
+    "NUXT_PUBLIC_KEYWORD_SEARCH_BROWSER_FALLBACK": "true"
+  }
+}

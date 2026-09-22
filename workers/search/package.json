@@ -1,0 +1,21 @@
+{
+  "name": "@halopress/search-worker",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsx scripts/prepare-assets.mjs",
+    "test": "tsx scripts/prepare-assets.mjs && vitest run",
+    "typecheck": "tsx scripts/prepare-assets.mjs && tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@halopress/korean-search-tokenizer": "workspace:*",
+    "garu-ko": "0.9.11"
+  },
+  "devDependencies": {
+    "tsx": "^4.23.1",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.10",
+    "wrangler": "4.110.0"
+  }
+}

@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en" data-halopress-origin="https://site.example">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HaloPress portable content consumer</title>
+</head>
+<body>
+  <main>
+    <h1>HaloPress portable content consumer</h1>
+    <form id="request-form">
+      <label for="page-id">Published Page ID</label>
+      <input id="page-id" name="page-id" required pattern="[A-Za-z0-9_-]+" placeholder="page-id">
+      <button type="submit">Render</button>
+    </form>
+    <p id="status" role="status">Set <code>data-halopress-origin</code> in this file, then enter a published Page ID.</p>
+    <div id="portable-content"></div>
+  </main>
+
+  <script>
+    const form = document.querySelector('#request-form')
+    const pageId = document.querySelector('#page-id')
+    const status = document.querySelector('#status')
+    const target = document.querySelector('#portable-content')
+    const stylesheetLinks = new Map()
+
+    const halopressOrigin = document.documentElement.dataset.halopressOrigin
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault()
+      target.replaceChildren()
+      status.textContent = 'Loading portable content…'
+      try {
+        if (!halopressOrigin || new URL(halopressOrigin).hostname.endsWith('.example')) {
+          throw new Error('Configure data-halopress-origin with the trusted HaloPress site origin first')
+        }
+        const endpoint = new URL(`/api/delivery/page/${encodeURIComponent(pageId.value)}`, halopressOrigin)
+        const response = await fetch(endpoint, { credentials: 'omit' })
+        if (!response.ok) throw new Error(`Delivery returned ${response.status}`)
+        const payload = await response.json()
+        const rendering = payload?.rendering
+        if (rendering?.contractVersion !== 2 || typeof rendering.html !== 'string' || !Array.isArray(rendering.stylesheets)) {
+          throw new Error('The response has no supported portable Page rendering envelope')
+        }
+        const nextStylesheets = new Set(rendering.stylesheets)
+        for (const [href, link] of stylesheetLinks) {
+          if (nextStylesheets.has(href)) continue
+          link.remove()
+          stylesheetLinks.delete(href)
+        }
+        for (const href of rendering.stylesheets) {
+          let link = stylesheetLinks.get(href)
+          if (!link) {
+            link = document.createElement('link')
+            link.rel = 'stylesheet'
+            link.href = href
+            link.dataset.haloStylesheet = 'true'
+            stylesheetLinks.set(href, link)
+          }
+          // Appending an existing node preserves deterministic stylesheet
+          // order without retaining stale contract revisions.
+          document.head.append(link)
+        }
+        target.innerHTML = rendering.html
+        status.textContent = `Rendered contract v${rendering.contractVersion} without the HaloPress application bundle.`
+      } catch (error) {
+        status.textContent = error instanceof Error ? error.message : 'Unable to render the response'
+      }
+    })
+
+  </script>
+</body>
+</html>

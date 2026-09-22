@@ -1,0 +1,28 @@
+diff --git a/package.json b/package.json
+index d18591f..6efc9fd 100644
+--- a/package.json
++++ b/package.json
+@@ -16,9 +16,23 @@
+     "./browser": {
+       "types": "./dist/browser.d.ts",
+       "default": "./dist/browser.js"
+     },
++    "./worker/core": {
++      "types": "./dist/core.d.ts",
++      "default": "./dist/core.js"
++    },
++    "./worker/wasm": {
++      "types": "./pkg/garu_wasm.d.ts",
++      "default": "./pkg/garu_wasm.js"
++    },
++    "./worker/wasm-module": {
++      "default": "./pkg/garu_wasm_bg.wasm"
++    },
++    "./worker/model": {
++      "default": "./models/base.gmdl"
++    },
+     "./node": {
+       "types": "./dist/node.d.ts",
+       "default": "./dist/node.js"
+     }
+   },
